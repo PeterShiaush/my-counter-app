@@ -1,0 +1,18 @@
+[application]
+name = "my-counter-app"
+default_platform = "web"
+
+[web.app]
+# HTML title tag content
+title = "My Dioxus App"
+# base_path 是 GitHub Pages 的子路徑（https://你的帳號.github.io/my-counter-app/）所設計的設定。
+# 當本地端執行 dx serve ，伺服器預設是在根目錄（ http://127.0.0.1:8080/my-counter-app/）運行，導致網頁找錯誤路徑的資源
+base_path = "my-counter-app"
+
+# include `assets` in web platform
+[web.resource]
+style = []
+script = []
+
+[web.resource.dev]
+script = []

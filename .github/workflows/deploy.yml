@@ -1,0 +1,51 @@
+name: Deploy Dioxus to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. 下載專案原始碼 (Checkout)
+        uses: actions/checkout@v4
+
+      - name: 2. 安裝 Rust 工具鏈與 WebAssembly 目標環境
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: 3. 啟用 Rust 編譯快取 (加速後續建置)
+        uses: Swatinem/rust-cache@v2
+
+      - name: 4. 安裝 Dioxus CLI (使用預編譯執行檔大幅縮短時間)
+        uses: taiki-e/install-action@v2
+        with:
+          tool: dioxus-cli
+
+      - name: 5. 建置 Dioxus Web 應用程式並統一輸出位置
+        run: |
+          dx build --release --platform web
+          mkdir -p ./publish_out
+          if [ -d "./artifact/public" ]; then
+            cp -r ./artifact/public/* ./publish_out/
+          elif compgen -G "./target/dx/*/release/web/public/index.html" > /dev/null; then
+            cp -r ./target/dx/*/release/web/public/* ./publish_out/
+          elif [ -d "./dist" ]; then
+            cp -r ./dist/* ./publish_out/
+          else
+            INDEX_PATH=$(find . -name "index.html" | grep -E "public|dist" | head -n 1)
+            cp -r $(dirname "$INDEX_PATH")/* ./publish_out/
+          fi
+          cp ./publish_out/index.html ./publish_out/404.html
+
+      - name: 6. 自動發布至 GitHub Pages (gh-pages 分支)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./publish_out

@@ -1,0 +1,45 @@
+.container {
+    text-align: center;
+    margin-top: 80px;
+    font-family: sans-serif;
+}
+
+.score-text {
+    font-size: 24px;
+}
+
+.btn-add {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-reset {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.result-box {
+    margin-top: 25px;
+    font-size: 20px;
+}
+
+.pass {
+    color: green;
+    font-weight: bold;
+}
+
+.fail {
+    color: red;
+    font-weight: bold;
+}
