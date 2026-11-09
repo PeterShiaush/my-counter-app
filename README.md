@@ -25,4 +25,5 @@ To run for a different platform, use the `--platform platform` flag. E.g.
 dx serve --platform desktop
 ```
 
-
+### 高中生 Rust + Dioxus 網頁開發與發布全攻略
+https://docs.google.com/document/d/1okQzzYmDWOeMQ00O4C3m-TSlS32_Mzbja6ux04UFjew/edit?usp=sharing
