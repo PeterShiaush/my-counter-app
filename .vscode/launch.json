@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "偵錯 Rust 執行檔",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=my-counter-app"
+        ],
+        "filter": {
+          "name": "my-counter-app",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
